@@ -52,7 +52,9 @@ namespace FiltersAndRules
             var postRepository = new PostRepository();
 
             IQueryable<Post> posts = postRepository.GetAll()
-                 .Where(post => post.IsPublished && post.PostedOn <= today && (post.PostedOn >= cutoffDate || post.Author == featuredAuthor && post.PostedOn >= featuredAuthorCutoffDate));
+                .ArePublished()
+                .PostedOnOrBefore(today)
+                .Where(post => post.PostedOn >= cutoffDate || post.Author == featuredAuthor && post.PostedOn >= featuredAuthorCutoffDate);
 
             return posts;
         }
