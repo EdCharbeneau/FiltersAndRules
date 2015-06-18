@@ -64,6 +64,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Filters\PostFilters.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Model\Post.cs" />
     <Compile Include="Model\PostRepository.cs" />

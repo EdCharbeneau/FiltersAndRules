@@ -7,6 +7,7 @@ using Xunit;
 using FluentAssertions;
 using FiltersAndRules.Model;
 using System.Diagnostics;
+using FiltersAndRules.Filters;
 
 namespace FiltersAndRules
 {
@@ -28,8 +29,8 @@ namespace FiltersAndRules
         {
             var postRepository = new PostRepository();
             return postRepository.GetAll()
-                        .Where(post => post.IsPublished)
-                        .Where(post => post.PostedOn <= today);
+                        .ArePublished()
+                        .PostedOnOrBefore(today);
         }
 
         [Fact]
