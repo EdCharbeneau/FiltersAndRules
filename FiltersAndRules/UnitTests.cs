@@ -28,8 +28,8 @@ namespace FiltersAndRules
         {
             var postRepository = new PostRepository();
             return postRepository.GetAll()
-                        .Where(post => post.IsPublished &&
-                                    post.PostedOn <= today);
+                        .Where(post => post.IsPublished)
+                        .Where(post => post.PostedOn <= today);
         }
 
         [Fact]
