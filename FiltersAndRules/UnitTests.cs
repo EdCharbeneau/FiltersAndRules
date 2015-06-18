@@ -8,6 +8,7 @@ using FluentAssertions;
 using FiltersAndRules.Model;
 using System.Diagnostics;
 using FiltersAndRules.Filters;
+using System.Linq.Expressions;
 
 namespace FiltersAndRules
 {
@@ -54,9 +55,14 @@ namespace FiltersAndRules
             IQueryable<Post> posts = postRepository.GetAll()
                 .ArePublished()
                 .PostedOnOrBefore(today)
-                .Where(post => post.PostedOn >= cutoffDate || post.Author == featuredAuthor && post.PostedOn >= featuredAuthorCutoffDate);
+                .Where(PostedOnOrAfter(cutoffDate) || post.Author == featuredAuthor && post.PostedOn >= featuredAuthorCutoffDate);
 
             return posts;
+        }
+
+        private Expression<Func<Post,bool>> PostedOnOrAfter(DateTime cutoffDate)
+        {
+            return post => post.PostedOn >= cutoffDate;
         }
     }
 }
