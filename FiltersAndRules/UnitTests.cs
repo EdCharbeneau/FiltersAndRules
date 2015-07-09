@@ -10,6 +10,7 @@ using System.Diagnostics;
 using FiltersAndRules.Filters;
 using System.Linq.Expressions;
 using PredicateExtensions;
+using static FiltersAndRules.Filters.PostFilters;
 
 namespace FiltersAndRules
 {
@@ -64,20 +65,7 @@ namespace FiltersAndRules
             return posts;
         }
 
-        private Expression<Func<Post,bool>> PostedOnOrAfter(DateTime cutoffDate)
-        {
-            return post => post.PostedOn >= cutoffDate;
-        }
 
-        private Expression<Func<Post, bool>> WithFeaturedAuthor(string featuredAuthor)
-        {
-            return post => post.Author == featuredAuthor;
-        }
-
-        private Expression<Func<Post, bool>> FeaturedAuthoPostedrOnOrAfter(string featuredAuthor, DateTime featuredAuthorCutoffDate)
-        {
-            return WithFeaturedAuthor(featuredAuthor).And(PostedOnOrAfter(featuredAuthorCutoffDate));
-        }
 
     }
 }
