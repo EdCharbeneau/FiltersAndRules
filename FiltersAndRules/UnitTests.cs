@@ -59,7 +59,7 @@ namespace FiltersAndRules
                 .PostedOnOrBefore(today)
                 .Where(
                     PostedOnOrAfter(cutoffDate)
-                    .Or(FeaturedAuthoPostedrOnOrAfter(featuredAuthor,featuredAuthorCutoffDate))
+                    .Or(FeaturedAuthorPostedOnOrAfter(featuredAuthor,featuredAuthorCutoffDate))
                     );
 
             return posts;

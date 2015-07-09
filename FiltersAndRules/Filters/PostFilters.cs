@@ -18,7 +18,7 @@ namespace FiltersAndRules.Filters
             return post => post.Author == featuredAuthor;
         }
 
-        public static Expression<Func<Post, bool>> FeaturedAuthoPostedrOnOrAfter(string featuredAuthor, DateTime featuredAuthorCutoffDate)
+        public static Expression<Func<Post, bool>> FeaturedAuthorPostedOnOrAfter(string featuredAuthor, DateTime featuredAuthorCutoffDate)
         {
             return WithFeaturedAuthor(featuredAuthor).And(PostedOnOrAfter(featuredAuthorCutoffDate));
         }
