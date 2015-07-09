@@ -23,6 +23,16 @@ namespace FiltersAndRules.Filters
             return WithFeaturedAuthor(featuredAuthor).And(PostedOnOrAfter(featuredAuthorCutoffDate));
         }
 
+        public static Expression<Func<Post, bool>> FeaturedAuthorsPostedOnOrAfter(string[] featuredAuthorNames, DateTime featuredAuthorCutoffDate)
+        {
+            var rule = PredicateExtensions.PredicateExtensions.Begin<Post>();
+            foreach (var authorName in featuredAuthorNames)
+            {
+                rule = rule.Or(FeaturedAuthorPostedOnOrAfter(authorName, featuredAuthorCutoffDate));
+            }
+            return rule;
+        }
+
         public static IQueryable<Post> ArePublished(this IQueryable<Post> posts)
         {
             return posts.Where(post => post.IsPublished);

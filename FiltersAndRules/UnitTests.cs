@@ -42,14 +42,14 @@ namespace FiltersAndRules
             DateTime today = DateTime.Parse("Thu, 06 Jun 2013 00:00:00 GMT");
             DateTime cutoffDate = today.AddDays(-1);
             DateTime featuredAuthorCutoffDate = today.AddDays(-7);
-            string featuredAuthor = "Nick Harrison";
+            string[] featuredAuthors = { "Nick Harrison", "Edward Charbeneau" };
 
-            IQueryable<Post> posts = GetFeaturedArticles(today, cutoffDate, featuredAuthor, featuredAuthorCutoffDate);
+            IQueryable<Post> posts = GetFeaturedArticles(today, cutoffDate, featuredAuthors, featuredAuthorCutoffDate);
 
-            posts.Count().Should().Be(2);
+            posts.Count().Should().Be(3);
         }
 
-        public IQueryable<Post> GetFeaturedArticles(DateTime today, DateTime cutoffDate, string featuredAuthor, DateTime featuredAuthorCutoffDate)
+        public IQueryable<Post> GetFeaturedArticles(DateTime today, DateTime cutoffDate, string[] featuredAuthors, DateTime featuredAuthorCutoffDate)
         {
             //Recent featured author posts
             var postRepository = new PostRepository();
@@ -59,7 +59,7 @@ namespace FiltersAndRules
                 .PostedOnOrBefore(today)
                 .Where(
                     PostedOnOrAfter(cutoffDate)
-                    .Or(FeaturedAuthorPostedOnOrAfter(featuredAuthor,featuredAuthorCutoffDate))
+                    .Or(FeaturedAuthorsPostedOnOrAfter(featuredAuthors,featuredAuthorCutoffDate))
                     );
 
             return posts;
